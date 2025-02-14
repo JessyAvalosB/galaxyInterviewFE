@@ -1,22 +1,15 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
+    mode: 'development',
     entry: './src/index.tsx',
     output: {
-        filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
-    },
-    mode: 'development',
-    devtool: 'inline-source-map',
-    devServer: {
-        static: './dist',
-        port: 3000,
-        hot: true,
+        filename: 'bundle.js',
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
     module: {
         rules: [
@@ -31,8 +24,16 @@ module.exports = {
             },
         ],
     },
+    devServer: {
+        static: {
+            directory: path.join(__dirname, 'public'),
+        },
+        open: true,  // Abre el navegador automáticamente
+        port: 3000,  // Puedes cambiar el puerto si lo deseas
+        hot: true,   // Habilita Hot Module Replacement
+        historyApiFallback: true, // Soporta navegación del lado cliente
+    },
     plugins: [
-        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './public/index.html',
         }),
