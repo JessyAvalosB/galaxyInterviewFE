@@ -9,3 +9,7 @@ export interface Car {
     mileage: string;
     price: string;
 }
+
+export interface AddCarProps {
+    handleSubmit: (data: Car) => void;
+}

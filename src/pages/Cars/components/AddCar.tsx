@@ -6,14 +6,11 @@ import {
 } from '@mui/material';
 
 import { useForm } from '../../../hooks';
-import { Car } from '../../../interfaces/cars';
 import { SimpleModal } from '../../../components';
 import { getCapitalize } from '../../../utils/texts';
+import { AddCarProps } from '../../../interfaces/cars';
+import { NEW_CAR_FIELDS } from '../../../constants/cars.constants';
 import { getInitialCarValues, validateCarForm } from '../../../utils/cars.util';
-
-interface AddCarProps {
-    handleSubmit: (data: Car) => void;
-}
 
 const AddCar = ({ handleSubmit: sendData }: AddCarProps) => {
     const [open, setOpen] = useState(false);
@@ -27,8 +24,9 @@ const AddCar = ({ handleSubmit: sendData }: AddCarProps) => {
     } = useForm({
         initialValues: getInitialCarValues(),
         validate: validateCarForm,
-        onSubmit: (values) => {
-            sendData(values);
+        onSubmit: async (values) => {
+            await sendData(values);
+            handleClose();
         }
     })
 
@@ -38,17 +36,6 @@ const AddCar = ({ handleSubmit: sendData }: AddCarProps) => {
         setOpen(false);
     }
 
-    const fields = [
-        'make',
-        'model',
-        'package',
-        'color',
-        'year',
-        'category',
-        'mileage',
-        'price',
-    ]
-
     return (
         <>
             <Button variant='contained' onClick={handleOpen}>
@@ -56,7 +43,7 @@ const AddCar = ({ handleSubmit: sendData }: AddCarProps) => {
             </Button>
             <SimpleModal isOpen={open} header='Add New Car'>
                 <form>
-                    {fields.map((field) => (
+                    {NEW_CAR_FIELDS.map((field) => (
                         <TextField
                             fullWidth
                             key={`${field}-field`}

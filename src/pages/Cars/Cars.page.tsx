@@ -6,12 +6,11 @@ import { AddCar } from './components';
 import { Car } from '../../interfaces/cars';
 import { getTableColumns } from '../../utils/table';
 import { DataTable, NavBar } from '../../components';
-import { ColumnConfig } from '../../interfaces/table';
+import { CAR_COLUMNS } from '../../constants/cars.constants';
 
 const Cars = () => {
     const {
         data,
-        error,
         loading,
         get,
         post,
@@ -21,19 +20,7 @@ const Cars = () => {
         get();
     }, []);
 
-    const carsColumns: ColumnConfig[] = [
-        { name: 'id', width: 100, type: 'string' },
-        { name: 'make', width: 150, type: 'string' },
-        { name: 'model', width: 150, type: 'string' },
-        { name: 'package', width: 150, type: 'string' },
-        { name: 'color', width: 150, type: 'string' },
-        { name: 'year', width: 150, type: 'number' },
-        { name: 'category', width: 150, type: 'string' },
-        { name: 'mileage', width: 150, type: 'number' },
-        { name: 'price', width: 150, type: 'number' }
-    ];
-
-    const columns = getTableColumns(carsColumns);
+    const columns = getTableColumns(CAR_COLUMNS);
 
     const handleSubmit = async (newCar: Car) => {
         await post(newCar);
@@ -49,7 +36,9 @@ const Cars = () => {
                 </Stack>
                 <DataTable
                     columns={columns}
-                    rows={data || []} />
+                    rows={data || []}
+                    pageSizeOptions={[5, 10, 15]}
+                    isLoading={loading} />
             </Container>
         </>
     )

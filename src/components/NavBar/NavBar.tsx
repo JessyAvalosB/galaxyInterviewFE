@@ -5,7 +5,7 @@ import {
 } from "@mui/material"
 
 export interface NavBarProps {
-    pageTitle: string;  // Título de la página actual
+    pageTitle: string;
 }
 
 const NavBar = ({ pageTitle }: NavBarProps) => {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App';
-
-import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
+
+import App from './App';
 import { DefaultTheme as theme } from './themes';
 
 const container = document.getElementById('root') as HTMLElement;

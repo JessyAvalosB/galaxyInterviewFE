@@ -1,4 +1,5 @@
 import { GridColDef } from "@mui/x-data-grid";
+
 import { getCapitalize } from "./texts";
 import { ColumnConfig } from "../interfaces/table";
 
