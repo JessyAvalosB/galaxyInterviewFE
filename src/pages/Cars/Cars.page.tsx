@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { Container, Stack } from '@mui/material';
-import { useFetch, } from '@developer-bug/custom-hooks';
 
 import { AddCar } from './components';
+import { useFetch } from '../../hooks';
 import { Car } from '../../interfaces/cars';
 import { getTableColumns } from '../../utils/table';
 import { DataTable, NavBar } from '../../components';
-import { CAR_COLUMNS } from '../../constants/cars.constants';
+import { getCarsColumns } from '../../constants/cars.constants';
 
 const Cars = () => {
     const {
@@ -14,18 +14,24 @@ const Cars = () => {
         loading,
         get,
         post,
+        delete: deleteCar
     } = useFetch<Car[], Car>('http://localhost:4000/cars');
 
     useEffect(() => {
         get();
     }, []);
 
-    const columns = getTableColumns(CAR_COLUMNS);
-
     const handleSubmit = async (newCar: Car) => {
         await post(newCar);
         get();
     }
+
+    const handleDelete = async (id: string) => {
+        await deleteCar(id);
+        get();
+    }
+
+    const columns = getTableColumns(getCarsColumns(handleDelete));
 
     return (
         <>
