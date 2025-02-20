@@ -6,18 +6,25 @@ export interface DataTableProps<T> {
     rows: T[];
     pageSizeOptions?: number[];
     isLoading?: boolean;
+    checkboxSelection?: boolean;
 }
 
-const DataTable = <T,>({ columns, rows, pageSizeOptions = [5, 10], isLoading = false }: DataTableProps<T>) => {
+const DataTable = <T,>({
+    columns,
+    rows,
+    pageSizeOptions = [5, 10],
+    isLoading = false,
+    checkboxSelection = false
+}: DataTableProps<T>) => {
     const paginationModel = { page: 0, pageSize: 5 };
     return (
-        <Paper sx={{ height: 400, width: '100%', margin: '0 auto' }}>
+        <Paper sx={{ width: '100%', margin: '0 auto' }}>
             <DataGrid
                 rows={rows}
                 columns={columns}
                 initialState={{ pagination: { paginationModel } }}
                 pageSizeOptions={pageSizeOptions}
-                checkboxSelection
+                checkboxSelection={checkboxSelection}
                 loading={isLoading}
                 sx={{ border: 0 }}
             />
