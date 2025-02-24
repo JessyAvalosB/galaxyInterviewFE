@@ -42,7 +42,7 @@ const AddCar = ({ handleSubmit: sendData }: AddCarProps) => {
                 Add Car
             </Button>
             <SimpleModal isOpen={open} header='Add New Car'>
-                <form>
+                <form data-testid="add-car-form">
                     {NEW_CAR_FIELDS.map((field) => (
                         <TextField
                             fullWidth
